@@ -16,17 +16,19 @@ Este projeto implementa um sistema de controle automático para dois reservatór
 ## 📋 Funcionalidades
 
 * **Monitoramento de Nível:** Leitura de 5 níveis de água (0%, 25%, 50%, 75%, 100%) para dois reservatórios independentes.
-* **Controle Inteligente (Histerese):** Evita o acionamento intermitente da bomba ("bouncing"). A bomba só liga quando a caixa superior está vazia e só desliga quando atinge 75%.
+* **Controle Inteligente (Histerese):** Evita o acionamento intermitente da bomba ("bouncing"). A bomba liga quando a caixa superior está vazia e a inferior está cheia e desliga quando a caixa superior atinge 75% ou quando a caixa inferior estiver seca.
 * **Proteção:** Impede o acionamento da bomba se a cisterna (caixa inferior) não tiver água suficiente (proteção contra marcha a seco).
 * **Feedback Visual:**
     * **Displays 7-Seg:** Mostram o nível numérico atual (0 a 4) de cada caixa.
-    * **LEDs de Status:** Indicam se a bomba está ligada (Verde) ou desligada/erro (Vermelho).
+    * **LEDs de Status:** Indicam se a bomba está ligada (Verde).
 * **Lógica de Sensor Invertida:** O sistema é projetado para sensores que operam em nível baixo ativo (0 = Água Presente / 1 = Sem Água).
 
 ## 🛠️ Hardware e Ferramentas
 
 * **Placa FPGA:** Colorlight-i9 (Lattice ECP5 - LFE5U-25F)
-* **Sensores:** Entradas digitais com resistores de *pull-up* internos.
+* **Sensores de Nível (Customizados):**
+    * Circuitos desenvolvidos manualmente utilizando componentes discretos: **Transistores (BJT), Resistores e LEDs**.
+    * **Funcionamento:** Utilizam a condutividade da água para saturar o transistor, enviando nível lógico '0' para a FPGA e acendendo o LED correspondente para verificação visual imediata.
 * **Linguagem:** Verilog (IEEE 1364).
 * **Toolchain (Open Source):**
     * Yosys (Síntese)
